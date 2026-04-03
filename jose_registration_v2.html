@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Live Masterclass — Jose Alvarado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #F5F8FF;
+    --bg2:      #FFFFFF;
+    --bg3:      #EDF2FF;
+    --blue:     #1E5FD4;
+    --blue-mid: #3B7BF0;
+    --blue-lt:  #E8EFFE;
+    --blue-glow: rgba(30,95,212,0.10);
+    --dark:     #0F1F3D;
+    --body:     #374060;
+    --muted:    #7A87A8;
+    --border:   rgba(30,95,212,0.15);
+    --border-s: rgba(30,95,212,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--body);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--blue);
+    padding: 10px 24px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar span { opacity: 0.5; margin: 0 10px; }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, #EAF0FF 0%, #F5F8FF 60%);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    padding: 72px 24px 64px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 700px; height: 500px;
+    background: radial-gradient(ellipse, rgba(30,95,212,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .label-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--blue-lt);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 24px;
+    animation: fadeUp 0.5s ease both;
+  }
+  .label-pill::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--blue-mid);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.4; transform:scale(0.8); }
+  }
+
+  .hero-eyebrow {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+    animation: fadeUp 0.5s 0.1s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 5.5vw, 64px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--dark);
+    max-width: 820px;
+    margin: 0 auto 14px;
+    animation: fadeUp 0.6s 0.15s ease both;
+  }
+  .hero-title em { font-style: italic; color: var(--blue); }
+
+  .hero-sub {
+    font-size: clamp(16px, 2vw, 19px);
+    color: var(--body);
+    max-width: 540px;
+    margin: 0 auto 36px;
+    font-weight: 400;
+    animation: fadeUp 0.6s 0.22s ease both;
+  }
+
+  /* ── DATE STRIP ── */
+  .date-strip {
+    display: inline-flex;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    background: #fff;
+    box-shadow: 0 2px 16px rgba(30,95,212,0.07);
+    animation: fadeUp 0.6s 0.28s ease both;
+  }
+  .date-item {
+    padding: 14px 26px;
+    text-align: center;
+  }
+  .date-item + .date-item { border-left: 1px solid var(--border-s); }
+  .date-item-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .date-item-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--dark);
+  }
+  .date-item.accent { background: var(--blue-lt); }
+  .date-item.accent .date-item-val { color: var(--blue); }
+
+  /* ── COUNTDOWN ── */
+  .countdown-wrap {
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.34s ease both;
+  }
+  .countdown-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .countdown { display: inline-flex; gap: 8px; align-items: flex-end; }
+  .cd-unit { text-align: center; }
+  .cd-num {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px;
+    min-width: 70px;
+    box-shadow: 0 2px 8px rgba(30,95,212,0.06);
+  }
+  .cd-label {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+  .cd-sep {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    color: var(--blue-mid);
+    padding-bottom: 16px;
+    opacity: 0.5;
+  }
+
+  /* ── FORM ── */
+  .form-wrap {
+    max-width: 460px;
+    margin: 0 auto;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .form-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 32px;
+    box-shadow: 0 8px 40px rgba(30,95,212,0.10);
+    position: relative;
+    overflow: hidden;
+  }
+  .form-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--blue), var(--blue-mid));
+  }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  .form-sub {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  .form-group { margin-bottom: 14px; }
+  .form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .form-group input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border-s);
+    border-radius: 9px;
+    padding: 13px 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--dark);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-group input::placeholder { color: #B0BAD0; }
+  .form-group input:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(30,95,212,0.10);
+    background: #fff;
+  }
+  .cta-btn {
+    width: 100%;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 24px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .cta-btn:hover {
+    background: var(--blue-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(30,95,212,0.25);
+  }
+  .cta-btn:active { transform: translateY(0); }
+  .form-note {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 64px 24px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--dark);
+    margin-bottom: 14px;
+  }
+  .section-title em { font-style: italic; color: var(--blue); }
+
+  .divider { border: none; border-top: 1px solid var(--border-s); margin: 0 24px; }
+
+  /* ── PROOF STRIP ── */
+  .proof-strip {
+    background: var(--blue-lt);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 24px;
+    text-align: center;
+  }
+  .proof-strip p { font-size: 14px; color: var(--body); max-width: 620px; margin: 0 auto; }
+  .proof-strip strong { color: var(--blue); font-weight: 600; }
+
+  /* ── PAIN GRID ── */
+  .pain-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+    gap: 14px;
+    margin-top: 36px;
+  }
+  .pain-card {
+    background: #fff;
+    border: 1px solid var(--border-s);
+    border-radius: 14px;
+    padding: 22px;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .pain-card:hover {
+    border-color: var(--border);
+    box-shadow: 0 4px 20px rgba(30,95,212,0.07);
+    transform: translateY(-2px);
+  }
+  .pain-icon {
+    width: 38px; height: 38px;
+    background: var(--blue-lt);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+  .pain-card h3 { font-size: 15px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
+  .pain-card p  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ── PILLARS ── */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 0;
+    margin-top: 36px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 24px rgba(30,95,212,0.07);
+  }
+  .pillar { padding: 32px 28px; }
+  .pillar + .pillar { border-left: 1px solid var(--border-s); }
+  .pillar-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 14px;
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(30,95,212,0.2);
+  }
+  .pillar h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+  .pillar p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+  /* ── HOST ── */
+  .host-wrap {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .host-avatar {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--blue-lt);
+    border: 3px solid var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--blue);
+    flex-shrink: 0;
+  }
+  .host-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 3px;
+  }
+  .host-handle { font-size: 13px; color: var(--blue); margin-bottom: 14px; font-weight: 500; }
+  .host-bio { font-size: 15px; color: var(--body); line-height: 1.75; margin-bottom: 24px; }
+
+  .stat-row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .stat {
+    background: var(--blue-lt);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 18px;
+  }
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    background: linear-gradient(160deg, #EAF0FF 0%, #F5F8FF 100%);
+    border-top: 1px solid var(--border);
+    padding: 80px 24px;
+    text-align: center;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 22px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border-s);
+    background: #fff;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .date-strip { flex-direction: column; width: 100%; max-width: 280px; }
+    .date-item + .date-item { border-left: none; border-top: 1px solid var(--border-s); }
+    .host-wrap { grid-template-columns: 1fr; }
+    .host-avatar { width: 80px; height: 80px; font-size: 28px; }
+    .pillar + .pillar { border-left: none; border-top: 1px solid var(--border-s); }
+    .form-card { padding: 26px 18px; }
+    .countdown { gap: 4px; }
+    .cd-num { font-size: 30px; min-width: 54px; padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  FREE LIVE MASTERCLASS <span>·</span> August 2025 <span>·</span> Limited Spots — Register Below
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="label-pill">Free Live Training · August 2025</div>
+  <p class="hero-eyebrow">For videographers &amp; content agency owners making $3–10k/month</p>
+  <h1 class="hero-title">
+    I'll Show You How to Land<br><em>High-Ticket Retainer Clients</em><br>in the Next 30 Days
+  </h1>
+  <p class="hero-sub">
+    I went from shooting videos for $300 to running a $50k/month content agency. In this free live class, I'm breaking down the exact 3-step system I used — and how you can use it to stop chasing projects and build real predictable income.
+  </p>
+
+  <div class="date-strip">
+    <div class="date-item">
+      <span class="date-item-label">Date</span>
+      <span class="date-item-val">August 2025</span>
+    </div>
+    <div class="date-item accent">
+      <span class="date-item-label">Time</span>
+      <span class="date-item-val">7:00 PM EST</span>
+    </div>
+    <div class="date-item">
+      <span class="date-item-label">Where</span>
+      <span class="date-item-val">Live on Zoom</span>
+    </div>
+  </div>
+
+  <div class="countdown-wrap">
+    <p class="countdown-label">Starts in</p>
+    <div class="countdown">
+      <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-label">Days</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-label">Hours</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-label">Min</span></div>
+      <span class="cd-sep">:</span>
+      <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-label">Sec</span></div>
+    </div>
+  </div>
+
+  <div class="form-wrap">
+    <div class="form-card">
+      <p class="form-title">Save your free spot</p>
+      <p class="form-sub">Join 100+ creators already registered</p>
+      <form onsubmit="return false;">
+        <div class="form-group">
+          <label>First name</label>
+          <input type="text" placeholder="Your first name" />
+        </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone (WhatsApp reminders)</label>
+          <input type="tel" placeholder="+1 (555) 000-0000" />
+        </div>
+        <button class="cta-btn">Reserve My Free Spot →</button>
+      </form>
+      <p class="form-note">No spam. Unsubscribe anytime. 100% free.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF STRIP -->
+<div class="proof-strip">
+  <p>
+    This is the same system I used to take <strong>Brandon from $10k → $32k/month</strong> and help <strong>Jerry land his first $6,500 retainer client in just 21 days</strong>.
+  </p>
+</div>
+
+<!-- PAIN POINTS -->
+<hr class="divider">
+<section class="section reveal">
+  <p class="section-label">Be honest with yourself</p>
+  <h2 class="section-title">If any of this sounds like you, <em>you need to be on this call</em></h2>
+  <div class="pain-grid">
+    <div class="pain-card">
+      <div class="pain-icon">📉</div>
+      <h3>Your income is all over the place</h3>
+      <p>Some months you hit $5–10k, other months it's crickets. You have no idea what next month looks like and it's stressing you out.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🔄</div>
+      <h3>You're always starting from zero</h3>
+      <p>No retainer clients, just one-off projects. Every single month you're back out there chasing work. Bro, that's not a business — that's a trap.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">💸</div>
+      <h3>You're scared to charge more</h3>
+      <p>You know you should be charging $3k, $5k, $6k a month — but you're afraid they'll say you're too expensive. So you keep undercharging and overdelivering.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">😓</div>
+      <h3>You're burnt out and still broke</h3>
+      <p>You're working all day, doing everything yourself, and still not making enough to justify it. No systems. No leverage. Just pure grind.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🎥</div>
+      <h3>You think better gear will fix it</h3>
+      <p>I used to think the same thing, homes. Better camera, better lens, better results. It doesn't work like that. Positioning and systems get you paid — not equipment.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-icon">🌀</div>
+      <h3>You're drowning in YouTube advice</h3>
+      <p>You've watched a hundred videos on how to get clients and you're more confused than when you started. I'm going to cut through all of that noise on this call.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- WHAT YOU'LL LEARN -->
+<section class="section reveal">
+  <p class="section-label">What I'm teaching live</p>
+  <h2 class="section-title">My <em>3-step blueprint</em> for landing retainer clients</h2>
+  <p style="color:var(--body);max-width:580px;margin-bottom:8px;">I don't do 100-video courses. I'm giving you the same clear roadmap I use every day — the one that's helped my students start seeing results in 24–48 hours.</p>
+  <div class="pillars">
+    <div class="pillar">
+      <div class="pillar-num">01</div>
+      <h3>Position yourself for retainers</h3>
+      <p>I'll show you exactly how to package your skills so clients want to stay with you month after month — not just book you for one project and disappear.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">02</div>
+      <h3>Get your first leads in 24–48 hours</h3>
+      <p>The exact outreach and content moves I use to get qualified leads fast — without a big following, without running ads, and without spamming people's DMs.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-num">03</div>
+      <h3>Close at $3k, $5k, $6.5k/month</h3>
+      <p>I'll walk you through how I handle "you're too expensive," how I price my services, and how I get clients to say yes without feeling like a pushy salesperson.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- HOST -->
+<section class="section reveal">
+  <p class="section-label">Who I am</p>
+  <div class="host-wrap">
+    <div class="host-avatar">JA</div>
+    <div>
+      <h2 class="host-name">Jose Alvarado</h2>
+      <p class="host-handle">@yoursocialmediaguy · San Diego, CA</p>
+      <p class="host-bio">
+        I grew up in a town of 1,400 people in Michoacán, Mexico. My family moved to California chasing a better life. I lost my brother to leukemia, watched my family fall apart, ended up in jail trying to escape poverty. I failed my real estate exam three times.
+        <br><br>
+        Then one content gig changed everything. From $1,500 a month to $3k, to $4.5k — I went all in and never looked back. Today I run a content agency doing $50k a month, I work with 7-figure coaches and major names in Mexican regional music, and I'm a husband and father of two.
+        <br><br>
+        I'm not teaching this from a theory textbook, bro. I'm still in the game every single day. And I want to help 100 creators hit six figures so they can build real freedom for their families — the same way I did.
+      </p>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-val">$50k/mo</div>
+          <div class="stat-label">My agency today</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">$32k/mo</div>
+          <div class="stat-label">Brandon (was at $10k)</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">21 days</div>
+          <div class="stat-label">Jerry's first $6.5k retainer</div>
+        </div>
+        <div class="stat">
+          <div class="stat-val">4 years</div>
+          <div class="stat-label">My longest-running client</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <div class="label-pill" style="margin-bottom:22px;animation:none;">Free. Live. August 2025.</div>
+  <h2 class="hero-title" style="animation:none;opacity:1;transform:none;margin-bottom:14px;">
+    You ready to stop freelancing<br>and start <em>building something real?</em>
+  </h2>
+  <p class="hero-sub" style="animation:none;opacity:1;transform:none;">
+    Reserve your spot now, brother. This is free, it's live, and I'm going to give you a clear path forward — no fluff, no hype. Just the system that works.
+  </p>
+  <div class="form-wrap" style="animation:none;">
+    <div class="form-card">
+      <p class="form-title">Save your free spot</p>
+      <p class="form-sub">Spots are limited — don't wait on this</p>
+      <form onsubmit="return false;">
+        <div class="form-group">
+          <label>First name</label>
+          <input type="text" placeholder="Your first name" />
+        </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Phone (WhatsApp reminders)</label>
+          <input type="tel" placeholder="+1 (555) 000-0000" />
+        </div>
+        <button class="cta-btn">Reserve My Free Spot →</button>
+      </form>
+      <p class="form-note">No spam. Unsubscribe anytime. 100% free.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2025 Jose Alvarado · @yoursocialmediaguy · All rights reserved
+</footer>
+
+<script>
+  // Set to August 15, 2025 at 7pm EST — update to exact date once confirmed
+  const eventDate = new Date('2025-08-15T19:00:00-05:00');
+
+  function updateCountdown() {
+    const diff = eventDate - new Date();
+    if (diff <= 0) {
+      ['cd-d','cd-h','cd-m','cd-s'].forEach(id => document.getElementById(id).textContent = '00');
+      return;
+    }
+    document.getElementById('cd-d').textContent = String(Math.floor(diff / 86400000)).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
